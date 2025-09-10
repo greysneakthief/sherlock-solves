@@ -91,7 +91,7 @@
 	- Suspicious `.bat` file recovered from base64 encoded attachment.
 - Suspicious artifacts:  
 	- `invoice_document.pdf.bat`
-	- `<p><a href="https://secure.business-finance.com/invoice/details/view/INV2025-0987/payment">Download Invoice</a></p>
+	- `<p><a href="https://secure.business-finance.com/invoice/details/view/INV2025-0987/payment">Download Invoice</a></p>`
 - Anomalies noted:
 	- All security measures for the e-mail origin appear legitimate after checking SPF, DKIM and DMARC.
 		- Why did a legitimate client address send an e-mail with a suspicious attachment?
