@@ -207,7 +207,7 @@ status: Finished
 - DEMODEX and GHOSTSPIDER used in conjunction.
 	- Origin with hacker **GhostEmperor**?
 	- C&C Server for GhostSpider utilizes `index.php` with an initial GET request.
-- Attribution chain has a cool diagram: ![[EarthEstries-Fig15-2.png]]
+- Attribution chain has a cool diagram: ![EarthEstries-Fig15-2.png](https://github.com/greysneakthief/sherlock-solves/blob/main/EarthEstries-Fig15-2.png)
 - C&C Domains:
 	- cloudlibraries[.]global[.]ssl[.]fastly[.]net
 	- pulseathermakf[.]com
