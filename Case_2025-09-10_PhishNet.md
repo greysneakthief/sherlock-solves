@@ -1,3 +1,18 @@
+---
+challenge: PhishNet
+date: 2025-09-10
+category: SOC
+difficulty: Very Easy
+tags:
+  - SOC
+  - MITRE
+  - email
+  - phishing
+  - malware
+start: 2025-09-10 13:54
+finish: 2025-09-10 16:58
+status: Finished
+---
 # 🕵️ Sherlock Case File – Case_2025-09-10_PhishNet
 
 **Opened:** 2025-09-10 13:54  

@@ -1,3 +1,18 @@
+---
+challenge: Brutus
+date: 2025-09-09
+category: DFIR
+difficulty: Very Easy
+tags:
+  - DFIR
+  - MITRE
+  - sysadmin
+  - forensics
+  - logs
+start: 2025-09-09 15:42
+finish: 2025-09-09 16:42
+status: Finished
+---
 # 🕵️ Sherlock Case File – Case_2025-09-09_Brutus
 
 **Opened:** 2025-09-09 15:42  

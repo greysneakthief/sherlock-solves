@@ -1,3 +1,18 @@
+---
+challenge: SalineBreeze-1
+date: 2025-09-10
+category: Threat Intelligence
+difficulty: Very Easy
+tags:
+  - threatintel
+  - APT
+  - TTP
+  - malware
+  - MITRE
+start: 2025-09-10 17:19
+finish: 2025-09-10 21.12
+status: Finished
+---
 # 🕵️ Sherlock Case File – Case_2025-09-10_SalineBreeze-1
 
 **Opened:** 2025-09-10 17:19  
@@ -12,6 +27,8 @@
 	- Your manager has just informed you that, due to recent budget cuts, you'll need to take on additional responsibilities in threat analysis. As a junior threat intelligence analyst at a cybersecurity firm, you're now tasked with investigating a cyber espionage campaign linked to a group known as Salt Typhoon. Apparently, defending against sophisticated Nation-State cyber threats is now a "do more with less" kind of game. Your Task: Conduct comprehensive research on Salt Typhoon, focusing on their tactics, techniques, and procedures. Utilize the MITRE ATT&CK framework to map out their activities and provide actionable insights. Your findings could play a pivotal role in fortifying our defenses against this adversary. Dive deep into the data and show that even with a shoestring budget, you can outsmart the cyber baddies.
 - Scope & boundaries (systems, artifacts, timeframe).
 	- OSINT Collection bay-beeeeee.
+		- Involves a number of Threat Intel websites.
+		- No active malware review, thank goodness.
 - Known IOCs / leads.
 	- Start with MITRE and move from there!
 
@@ -21,12 +38,19 @@
 - Source(s): (disk image, pcap, memory dump, logs, etc.)  
 	- Open-source repositories such as:
 		- https://attack.mitre.org/
+	- Accumulated in OSINT:
+		- http://picussecurity.com/resource/blog/salt-typhoon-removing-chinese-telecom-equipment
+		- https://www.trendmicro.com/en_us/research/23/h/earth-estries-targets-government-tech-for-cyberespionage.html
+		- https://www.trendmicro.com/en_us/research/24/k/earth-estries.html
+		- https://cybersecsentinel.com/earth-estries-uses-ghostspider-malware-to-infiltrate-high-value-targets/
+		- https://securelist.com/ghostemperor-from-proxylogon-to-kernel-mode/104407/
 - Acquisition method / chain of custody:  
 	- N/A
 - Integrity check (hashes, verification):  
 	- N/A
 - Storage location:  
-	- `./SalineBreeze-1`
+	- `~/Simulations/Sherlocks/SalineBreeze-1`
+		- ^(this file)
 
 ---
 
@@ -250,6 +274,7 @@
 	- Getting too caught up on details for complicated subjects (kernel level malware is not my wheelhouse)
 	- Organizing links.
 		- Remember to utilize the folder structure we've been utilizing for each engagement! Stream of consciousness notes are effective if you have time for review, plus they allow concretization of concepts.
+	- *1 day review* --> should have added these files to specific folders to allow embedded screenshots to be pulled with uploads.
 - Tools or scripts to add to my playbook?
 	- Good to know that:
 		- MITRE
