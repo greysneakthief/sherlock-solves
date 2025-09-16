@@ -9,7 +9,7 @@ tags:
   - DFIR
 start: 2025-09-15 14:55
 finish: 2025-09-15 20:04
-status: in-progress
+status: complete
 ---
 
 # Sherlock Case File – Case-2025-09-15-RomCom
