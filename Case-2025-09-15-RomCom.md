@@ -7,8 +7,8 @@ difficulty: Very Easy
 tags:
   - mft-analysis
   - DFIR
-start:2025-09-15 14:55
-finish:
+start: 2025-09-15 14:55
+finish: 2025-09-15 20:04
 status: in-progress
 ---
 
@@ -82,5 +82,112 @@ status: in-progress
 
 - **Timestamp:** 2025-09-15 16:35
 - **Overview:** It appears Zimmerman's tools are written for Windows (arghhhh), and wine is missing some fundamentals. Going to use my gaming laptop.
+
+##### Establishing Windows Obsidian Git
+
+- **Timestamp:** 2025-09-15 17:37
+- **Overview:** Just moving a bunch of shit onto my Windows workstation so I have an environment for tools. If I was more clever I would run a windows VM but their service keys are always a pain in the ass, so running a git instance for sherlock-solves is the best solution.
+- Also set up my obsidian environment.
+
+##### Parsing the $MFT file to CSV and Reading
+
+- **Timestamp:** 2025-09-15 17:38
+- **Action:**
+	- Mounted filesystem (easy on windows)
+		- **Personal reminder to investigate linux based DFIR tools**
+	- Parsed $MFT file
+		- "The **Master File Table (MFT)** is the core database of the NTFS file system, storing a record for every file and directory on the volume."
+		- "Each record holds metadata such as names, timestamps, permissions, and sometimes even the file’s data itself, making the MFT vital for both system operation and forensic analysis."
+	- Filtered results for `.rar` files.
+- **Commands:** 
+```
+.\MFTECmd.exe -f "D:\C\`$MFT" --csv <outputfile.csv>
+.\TimelineExplorer.exe
+```
+- Various filtering command (screenshots)
+- **Notes:** 
+	- Found file `Pathology-Department-Research-Records.rar`
+	- Found creation date `2025-09-02 08:13:50`
+- **Next Steps:**
+	- Reconstruct timeline for when file was extracted
+
+##### Parsing $J file
+
+- **Timestamp:** 2025-09-15 17:52
+- **Action:** Finding the data stream timeline in USNJournal under $Extend\$J
+	- "The USN Journal is like a changelog for the filesystem."
+	- "Whenever a file or directory changes, NTFS writes a USN record to `$J`."
+- **Commands:** 
+```
+.\MFTECmd.exe -f "D:\C\`$Extend\`$J" --csv <outputfile.csv
+.\TimelineExplorer.exe
+```
+- **Notes:** 
+	- Found timestamp for file open at `2025-09-02 08:14:04`
+- **Next Steps:** 
+	- Filter results to see what exactly was extracted
+
+##### Filtering results from $MFT exported CSV from earlier
+
+- **Timestamp:** 2025-09-15 18:05
+- **Action:** We're filtering results from the MFT file to see what exact file was extracted to inspect if it was malicious.
+- **Commands:** 
+	- Filter by Parent Path in FileExplorer GUI
+	- Search/Find `.docx`
+		- No Result
+	- Search/Find `.pdf`
+		- Found result.
+	- **Personal note:** Common file ending list might be useful to parse results.
+- **Notes:** Found `Genotyping_Results_B57_Positive.pdf` in `.\Users\susan\Documents`
+- **Next Steps:**
+	- Maybe a check of the hash on virustotal?
+	- If file not malicious, check for any auxiliary files loaded.
+
+-- Dinner break
+##### Searching for interesting artifacts
+
+- **Timestamp:** 2025-09-15 19:36
+- **Action:** Sorting the timestamps between 08:13 and 08:15 while looking for suspicious files.
+- **Commands:** TimelineExplorer
+- **Notes:** 
+	- Found suspicious `.exe` file.
+	- Sanity check for other `.exe` files -> this one fits the timeline.
+	- `C:\Users\susan\AppData\Local\ApbxHelper.exe`
+	- `.lnk` file created at the same time.
+	- Cross-examined that with USNJournal file.
+	- `C:\Users\susan\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\Display Settings.lnk`
+		- This seems to link to startup programs (probably for persistence)
+- **Next Steps:** 
+	- Finalize report details, including MITRE ATT&CK designation.
+	- Determine when malicious executable was opened.
+		- Repeated above procedures, obtained `2025-09-02 08:15:05` -> `.lnk` created by `Genotyping_results_B57_Positive.lnk`
+
+##### MITRE Designation
+
+- **Timestamp:** 2025-09-15 19:49
+- **Overview:**
+	- Used search to find anything to do with "persistence".
+	- Found `T1547`
+		- Sub-designation for startup folder exploits at `T1547.001`
+	- Probably a better fit is `T1547.009`
+		- While link is to startup, it's actually a malicious `.lnk` that does the heavy lifting here.
+
+### Review
+#### Post-Analysis
+- Malicious file was hidden in a `.rar` document.
+- Leveraged LFI to change write directory for extraction of malicious payload.
+- Malicious payload disguised by decoy document.
+- Decoy links to malicious executable.
+- User inadvertently accesses malicious file through link (shortcut), executing program.2025-09-15 20:04
+
+
+#### Takeaways
+- Update version of WinRAR to prevent this exploit.
+- Remember that [Zimmerman's Tools](https://ericzimmerman.github.io/#!index.md) for are incredibly useful, but require an instance of windows to run.
+- USNJournal file ($J) is useful to review as a forensic trail, unless actively tampered with, along with the $MFT (Master File Table) for NTFS.
+- Interesting exploit utilizing a link to disguise access to the malicious file.
+
+
+
 
 
